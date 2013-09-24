@@ -1,4 +1,4 @@
-package com;
+package com.marksomnian.echode;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class Echode {
 	
 	//i couldn't get the welcome message right, so thats why i made this
 	public static void intro() {
-		System.out.println("Welcome to ECHODE version 0.2");
+		System.out.println("Welcome to ECHODE version 0.2.2");
 		mainLoop();
 	}
 	
