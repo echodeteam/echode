@@ -8,6 +8,7 @@ public class Echode {
 	
 	/**
 	* @param args
+	* bob
 	*/
 	public static void main(String[] args) {
 		scan = new Scanner(System.in);
