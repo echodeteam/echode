@@ -44,6 +44,7 @@ public class Echode {
 		}
 		}
 		**/
+		int i = in2.indexOf(' ');
 		String word = in2.substring(0);
 		switch(word) {
 			case "about":
