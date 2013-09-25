@@ -44,8 +44,9 @@ public class Echode {
 		}
 		}
 		**/
-		String word = in2.substring(0);
-		switch(word) {
+		int i = in2.indexOf(' ');
+		String word = in2.substring(0, i);
+		switch(in2) {
 			case "about":
 				System.out.println("Echode version 0.2.3\nMade by Erik Konijn and Marks Polakovs");
 				break;
