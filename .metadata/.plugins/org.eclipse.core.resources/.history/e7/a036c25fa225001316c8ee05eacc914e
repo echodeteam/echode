@@ -29,10 +29,7 @@ public class Echode {
 	}
 	
 	private static void parse(String in2) {
-		/**
-		 * Commented this out, in case needed.
-		 * 
-		if (in2.equalsIgnoreCase("about")) {
+		/**if (in2.equalsIgnoreCase("about")) {
 			System.out.println("Echode version 0.2.2\nMade by Erik Konijn and Marks Polakovs");
 		} else {
 			if (in2.equalsIgnoreCase("kill")){

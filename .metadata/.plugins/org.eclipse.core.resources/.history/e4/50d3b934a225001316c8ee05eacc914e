@@ -14,7 +14,7 @@ public class Echode {
 		intro();
 	}
 	
-	//welcome message
+	//i couldn't get the welcome message right, so thats why i made this
 	public static void intro() {
 		System.out.println("Welcome to ECHODE version 0.2.3");
 		mainLoop();
@@ -29,10 +29,7 @@ public class Echode {
 	}
 	
 	private static void parse(String in2) {
-		/**
-		 * Commented this out, in case needed.
-		 * 
-		if (in2.equalsIgnoreCase("about")) {
+		/**if (in2.equalsIgnoreCase("about")) {
 			System.out.println("Echode version 0.2.2\nMade by Erik Konijn and Marks Polakovs");
 		} else {
 			if (in2.equalsIgnoreCase("kill")){
@@ -46,7 +43,7 @@ public class Echode {
 		**/
 		switch(in2) {
 			case "about":
-				System.out.println("Echode version 0.2.3\nMade by Erik Konijn and Marks Polakovs");
+				System.out.println("Echode version 0.2.2\nMade by Erik Konijn and Marks Polakovs");
 				break;
 			case "kill":
 				System.out.println("Echode shut down succesfully.");
