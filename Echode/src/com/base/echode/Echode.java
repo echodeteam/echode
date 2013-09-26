@@ -55,7 +55,8 @@ public class Echode {
 					.println("List of commands:\n"
 							+ "about ----------------------------------- Gives some info about ECHODE\n"
 							+ "help ---------------------------------------------- Lists all commands\n"
-							+ "kill ---------------------------------------- Quits the ECHODE console\n");
+							+ "kill ---------------------------------------- Quits the ECHODE console\n"
+							+ "time <all|date|digital> ---------------------------------- Outputs time");
 			break;
 		case "version":
 			System.out.println("0.2.3");
