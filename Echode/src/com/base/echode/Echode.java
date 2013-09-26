@@ -57,7 +57,7 @@ public class Echode {
 							+ "help ---------------------------------------------- Lists all commands\n"
 							+ "kill ---------------------------------------- Quits the ECHODE console\n"
 							+ "version ------------------------ Outputs current Echode version number\n"
-							+ "time <all|date|digital> ---------------------------------- Outputs time");
+							+ "time <all|date|digital> --------------------------------- Outputs time\n");
 			break;
 		case "version":
 			System.out.println("0.3");
