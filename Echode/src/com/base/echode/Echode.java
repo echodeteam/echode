@@ -18,7 +18,7 @@ public class Echode {
 
 	// welcome message
 	public static void intro() {
-		System.out.println("Welcome to ECHODE version 0.2.3");
+		System.out.println("Welcome to ECHODE version 0.3");
 		mainLoop();
 	}
 
@@ -44,7 +44,7 @@ public class Echode {
 		switch (result[0]) {
 		case "about":
 			System.out
-					.println("Echode version 0.2.3\nMade by Erik Konijn and Marks Polakovs");
+					.println("Echode version 0.3\nMade by Erik Konijn and Marks Polakovs");
 			break;
 		case "kill":
 			System.out.println("Echode shut down succesfully.");
@@ -56,10 +56,12 @@ public class Echode {
 							+ "about ----------------------------------- Gives some info about ECHODE\n"
 							+ "help ---------------------------------------------- Lists all commands\n"
 							+ "kill ---------------------------------------- Quits the ECHODE console\n"
+							+ "version -------------------------- Outputs current Echode version number"
 							+ "time <all|date|digital> ---------------------------------- Outputs time");
 			break;
 		case "version":
-			System.out.println("0.2.3");
+			System.out.println("0.3");
+			break;
 		case "time":
 			try {
 				switch (result[1]) {
@@ -82,11 +84,11 @@ public class Echode {
 					System.out.println(digitaltime);
 					break;
 				default:
-					System.out.println("Usage: 'time <all>'");
+					System.out.println("Usage: 'time <all|date|digital>'");
 					break;
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("Usage: 'time <all>'");
+				System.out.println("Usage: 'time <all|date|digital>'");
 			}
 			break;
 		default:
