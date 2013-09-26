@@ -56,7 +56,7 @@ public class Echode {
 							+ "about ----------------------------------- Gives some info about ECHODE\n"
 							+ "help ---------------------------------------------- Lists all commands\n"
 							+ "kill ---------------------------------------- Quits the ECHODE console\n"
-							+ "version -------------------------- Outputs current Echode version number"
+							+ "version ------------------------ Outputs current Echode version number\n"
 							+ "time <all|date|digital> ---------------------------------- Outputs time");
 			break;
 		case "version":
