@@ -1,4 +1,4 @@
-package com.base.echode;
+package echode;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
