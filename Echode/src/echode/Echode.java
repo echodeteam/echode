@@ -1,28 +1,48 @@
 package echode;
 
+import java.io.File;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Echode {
 	static Scanner scan;
 	private static String in;
+	private static List<Class> loaded = new ArrayList<>();
 
 	/**
 	 * @param args
+	 * @throws ReflectiveOperationException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ReflectiveOperationException {
 		scan = new Scanner(System.in);
 		intro();
 	}
 
 	// welcome message
-	public static void intro() {
-		System.out.println("Welcome to ECHODE version 0.3");
+	public static void intro() throws ReflectiveOperationException {
+		System.out.println("Welcome to ECHODE version 0.3\nLoading echode.programs...");
+		load();
 		mainLoop();
 	}
 
-	private static void mainLoop() {
+	private static void load() throws ClassNotFoundException, NoSuchMethodException, SecurityException {
+		Class c = Class.forName("echode.Test");
+		loaded.add(c);
+		
+	}
+
+	private static void mainLoop() throws ReflectiveOperationException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		while (true) {
 			System.out.print("-> ");
 			in = scan.nextLine();
@@ -30,7 +50,7 @@ public class Echode {
 		}
 	}
 
-	private static void parse(String in2) {
+	private static void parse(String in2) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		/**
 		 * Commented this out, in case needed.
 		 * 
@@ -92,7 +112,11 @@ public class Echode {
 			}
 			break;
 		default:
-			System.out.println("Not implemented yet.");
+			for (Class c:loaded) {
+				if(c.getName().equals(result[0])) {
+					c.getMethod("run", PrintStream.class).invoke(Echode.class, System.out);
+				}
+			}
 			break;
 		}
 	}
