@@ -1,9 +1,9 @@
 
 package echode;
 
-import java.io.PrintWriter;
+import java.io.PrintStream;
 
-/**A base interface for all Echode programs. Required to be implemented by all programs
+/**A base interface for all Echode echode.programs. Required to be implemented by all echode.programs
  * @author Marks
  *
  */
@@ -18,7 +18,7 @@ public interface Program {
 	 * instead use the output stream.
 	 * @param o the output stream.
 	 */
-	public void run(PrintWriter o);
+	public void run(PrintStream o);
 	/**
 	 * Called when the program is loaded.
 	 */
