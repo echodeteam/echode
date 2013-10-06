@@ -12,6 +12,7 @@ public class Echode {
 	static Scanner scan;
 	private static String in;
 	private static List<Class> loaded = new ArrayList<>();
+	static boolean gui = false;
 
 	/**
 	 * @param args
@@ -19,11 +20,16 @@ public class Echode {
 	 */
 	public static void main(String[] args) throws ReflectiveOperationException {
 		scan = new Scanner(System.in);
-		intro();
+		if(gui) {
+			EchodeGUI.main();
+		} else {
+			intro();
+		}
 	}
 
 	// welcome message
 	public static void intro() throws ReflectiveOperationException {
+		
 		System.out.println("Welcome to ECHODE version 0.3\nLoading echode.programs...");
 		load();
 		mainLoop();
@@ -50,7 +56,7 @@ public class Echode {
 		 * if (in2.equalsIgnoreCase("about")) { System.out.println(
 		 * "Echode version 0.2.2\nMade by Erik Konijn and Marks Polakovs"); }
 		 * else { if (in2.equalsIgnoreCase("kill")){
-		 * System.out.println("Echode shut down succesfully."); System.exit(0);
+		 * System.out.println("Echode shut down successfully."); System.exit(0);
 		 * } else{ System.out.println("Not implemented yet."); } }
 		 **/
 		String[] result = in.split(" ", 2);
@@ -107,7 +113,7 @@ public class Echode {
 		default:
 			for (Class c:loaded) {
 				if(c.getName().equals(result[0])) {
-					c.getMethod("run", PrintStream.class).invoke(Echode.class, System.out);
+					c.getMethod("run", PrintStream.class).invoke(Echode.class, System.out); //System.out is temporary until we get our own PrintWriter
 				}
 			}
 			break;
