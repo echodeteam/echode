@@ -12,7 +12,7 @@ public class Echode {
 	static Scanner scan;
 	private static String in;
 	private static List<Class> loaded = new ArrayList<>();
-	static boolean gui = true;
+	static boolean gui = false; //GUI is broken for now
 
 	/**
 	 * @param args
