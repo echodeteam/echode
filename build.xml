@@ -1,4 +1,4 @@
-<project>
+<project name='echode' default='main'>
 
     <target name="clean">
         <delete dir="build"/>
