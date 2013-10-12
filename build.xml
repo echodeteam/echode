@@ -4,17 +4,18 @@
         <delete dir="build"/>
     </target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="Echode/src" destdir="build/classes"/>
+    <target name="compile" depends='clean'>
+        <mkdir dir="build"/>
+        <javac srcdir="Echode/src" destdir="build"/>
     </target>
 
-    <target name="jar">
+    <target name="jar" depends='compile'>
         <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+        <jar destfile="build/jar/Echode.jar" basedir="build">
             <manifest>
-                <attribute name="Main-Class" value="oata.HelloWorld"/>
+                <attribute name="Main-Class" value="echode.Echode"/>
             </manifest>
         </jar>
     </target>
+	   <target name="main" depends="clean,compile,jar"/>
 </project>
