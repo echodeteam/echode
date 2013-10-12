@@ -1,5 +1,13 @@
 <project name='echode' default='main'>
 
+	<property name="src.dir"     value="Echode/src"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+
+    <property name="main-class"  value="echode.Echode"/>
+
     <target name="clean">
         <delete dir="build"/>
     </target>
