@@ -19,4 +19,5 @@
     </target>
 	   <target name="main" depends="clean,compile"/>
 	   <target name='test' depends='main'/>
+	   <target name='jenk' depends='main,jar'/>
 </project>
