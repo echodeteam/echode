@@ -12,7 +12,7 @@ public class Echode {
 	static Scanner scan;
 	private static String in;
 	private static List<Class> loaded = new ArrayList<>();
-	static boolean gui = false;
+	static boolean gui = true;
 
 	/**
 	 * @param args
@@ -21,7 +21,7 @@ public class Echode {
 	public static void main(String[] args) throws ReflectiveOperationException {
 		scan = new Scanner(System.in);
 		if(gui) {
-			EchodeGUI.main();
+			new EchodeGUI(new Echode()).setVisible(true);
 		} else {
 			intro();
 		}
@@ -49,7 +49,7 @@ public class Echode {
 		}
 	}
 
-	private static void parse(String in2) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	static void parse(String in2) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		/**
 		 * Commented this out, in case needed.
 		 * 
