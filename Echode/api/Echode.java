@@ -118,7 +118,7 @@ public class Echode {
                                             argv[i-1] = result[i];
                                         }
                                     }
-					c.getDeclaredMethod("run", PrintStream.class)
+					c.getDeclaredMethod("run", PrintStream.class, String[].class)
                                                 .invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
 				}
 			}
