@@ -80,7 +80,7 @@
         <javac srcdir="Echode/src" destdir="build/classes"/>
     </target>
 
-    <target name="jar">
+    <target name="jar" depends="compile">
         <mkdir dir="build/jar"/>
         <jar destfile="build/jar/Echode.jar" basedir="build/classes">
             <manifest>
@@ -88,4 +88,5 @@
             </manifest>
         </jar>
     </target>
+    <target name="default" depends="clean,jar"> </target>
 </project>
