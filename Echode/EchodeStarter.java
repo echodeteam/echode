@@ -5,12 +5,14 @@
 
 package Echode;
 
+import echode.EchodeCLIWrapper;
+import java.net.MalformedURLException;
 /**
  *
  * @author SirMarksomnian
  */
 public class EchodeStarter {
-    public static void main(String args[]) {
+    public static void main(String args[]) throws ReflectiveOperationException, MalformedURLException {
         EchodeCLIWrapper.main(args);
     }
 }
