@@ -9,7 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="Echode" default="default" basedir=".">
     <description>Builds, tests, and runs the project Echode.</description>
-    <import file="nbproject/build-impl.xml"/>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -71,4 +71,21 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="Echode/src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="echode.EchodeStarter"/>
+            </manifest>
+        </jar>
+    </target>
 </project>
