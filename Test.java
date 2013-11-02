@@ -1,10 +1,7 @@
-package echode.programs;
-
-import java.io.PrintStream;
-import java.io.PrintWriter;
 
 import echode.Program;
 import echode.RespondsTo;
+import java.io.PrintStream;
 
 
 public class Test implements Program {

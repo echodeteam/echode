@@ -2,18 +2,18 @@ package echode.api;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import echode.EchodeGUI;
 import echode.Program;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Files;
 
 public class Echode {
 	 Scanner scan;
@@ -28,30 +28,49 @@ public class Echode {
 	 * @throws ReflectiveOperationException 
 	 */
 	
-	public Echode(PrintStream out) {
+	public Echode(PrintStream out   ) {
 		this.out = out;
 	}
 
 	// welcome message
-	public  void intro() throws ReflectiveOperationException {
+	public  void intro() throws ReflectiveOperationException, MalformedURLException {
 		
 		out.println("Welcome to ECHODE version 0.3\nLoading echode.programs...");
 		load();
 	}
 
-	private  void load() throws ClassNotFoundException, NoSuchMethodException, SecurityException {
-		File dir = new File(new File("\\programs\\Test.java").getParent());
-		out.println(dir);
+	private  void load() throws ReflectiveOperationException, MalformedURLException {
+                String currentDir = System.getProperty("user.dir");
+                //System.out.println(currentDir);
+		File dir = new File(currentDir + "\\programs\\");
+                if (!dir.isDirectory()) {
+                    boolean mkdir = dir.mkdir();
+                    if (!mkdir) {
+                        throw new RuntimeException("Making the directory failed.");
+                    }
+                }
+                URL url = new URL("file", currentDir, "programs/");
+		//out.println(dir);
+                URL[] urls = new URL[1];
+                urls[0] = url;
+                URLClassLoader loader = new URLClassLoader(urls);
 		for (File f: dir.listFiles()) {
 			out.println(f);
 			if (f.getName().trim().endsWith(".class")) {
-				String name = f.getName().replace(".class", "");
-				out.println(name);
-				c = Class.forName("echode.programs." + name);
+				String name = f.getName();
+                                name = name.replaceAll(".class", "");
+                                name = name.replace(dir.getAbsolutePath(), "");
+                                name = name.replaceAll("/", ".");
+                                name = name.replaceAll("\\\\", ".");
+                                //out.println();
+				//out.println(name);
+				Class c = loader.loadClass(name);
+                                //System.err.println(c);
 				for (Class<?> i:c.getInterfaces()) {
+                                    //System.err.println(c);
 					if (i.equals(Program.class)) {
 						loaded.add(c);
-						out.println("Loaded " + c);
+						out.println("Loaded " + c.getName());
 					
 				}
 				}
@@ -64,7 +83,7 @@ public class Echode {
 
 	
 
-	public  void parse(String in2) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public  void parse(String in2) throws ReflectiveOperationException {
 		/**
 		 * Commented this out, in case needed.
 		 * 
@@ -126,9 +145,11 @@ public class Echode {
 			}
 			break;
 		default:
+                    Class noparams[] = {};
 			for (Class c:loaded) {
-				if(c.getName().equals(result[0])) {
-					c.getMethod("run", PrintStream.class).invoke(Echode.class, out); //out is temporary until we get our own PrintWriter
+				if(c.getName().equalsIgnoreCase(result[0])) {
+					c.getDeclaredMethod("run", PrintStream.class)
+                                                .invoke(c.getConstructors()[0].newInstance(noparams), out); 
 				}
 			}
 			break;
