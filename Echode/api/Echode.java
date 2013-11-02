@@ -2,7 +2,6 @@ package echode.api;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,7 +12,8 @@ import echode.Program;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.nio.file.Files;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Echode {
 	 Scanner scan;
@@ -22,6 +22,7 @@ public class Echode {
 	 Class<?> c;
 	boolean started = false;
 	private PrintStream out;
+        private Map<String, Map<String, ?>> vars = new HashMap<>();
 
 	/**
 	 * @param args
@@ -103,53 +104,22 @@ public class Echode {
 			out.println("Echode shut down succesfully.");
 			System.exit(0);
 			break;
-		case "help":
-			out
-					.println("List of commands:\n"
-							+ "about ----------------------------------- Gives some info about ECHODE\n"
-							+ "help ---------------------------------------------- Lists all commands\n"
-							+ "kill ---------------------------------------- Quits the ECHODE console\n"
-							+ "version ------------------------ Outputs current Echode version number\n"
-							+ "time <all|date|digital> --------------------------------- Outputs time\n");
-			break;
+                //Help may be reimplemented at a later date
 		case "version":
 			out.println("0.3");
-			break;
-		case "time":
-			try {
-				switch (result[1]) {
-				case "all":
-					String alltime = new SimpleDateFormat(
-							"yyyy-MM-dd HH:mm:ss").format(Calendar
-							.getInstance().getTime());
-					out.println(alltime);
-					break;
-				case "date":
-					String datetime = new SimpleDateFormat(
-							"yyyy-MM-dd").format(Calendar
-							.getInstance().getTime());
-					out.println(datetime);
-					break;
-				case "digital":
-					String digitaltime = new SimpleDateFormat(
-							"HH:mm:ss").format(Calendar
-							.getInstance().getTime());
-					out.println(digitaltime);
-					break;
-				default:
-					out.println("Usage: 'time <all|date|digital>'");
-					break;
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Usage: 'time <all|date|digital>'");
-			}
 			break;
 		default:
                     Class noparams[] = {};
 			for (Class c:loaded) {
 				if(c.getName().equalsIgnoreCase(result[0])) {
+                                    String[] argv = new String[result.length - 1];
+                                    for(int i = 0;i<result.length;i++) {
+                                        if (!(i == 0)) {
+                                            argv[i-1] = result[i];
+                                        }
+                                    }
 					c.getDeclaredMethod("run", PrintStream.class)
-                                                .invoke(c.getConstructors()[0].newInstance(noparams), out); 
+                                                .invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
 				}
 			}
 			break;

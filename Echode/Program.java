@@ -16,11 +16,13 @@ public interface Program {
 	/**
 	 * Called when the program is run. The program shall <i>NEVER</i> print directly to System.out OR System.err,
 	 * instead use the output stream.
-	 * @param o the output stream.
+         * @param o the output stream.
+         * @param args the arguments 
 	 */
-	public void run(PrintStream o);
-	/**
-	 * Called when the program is loaded.
-	 */
-	public void init();
+	public void run(PrintStream o, String[] args);
+        
+        /**Not used now.
+         * 
+         */
+        public void init();
 }

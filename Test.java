@@ -14,8 +14,7 @@ public class Test implements Program {
 	}
 
 	@Override
-	@RespondsTo(command = "test")
-	public void run(PrintStream o) {
+	public void run(PrintStream o, String[] args) {
 		o.println("Hehlo!");
 
 	}
