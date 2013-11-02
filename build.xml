@@ -89,4 +89,5 @@
         </jar>
     </target>
     <target name="default" depends="clean,jar"> </target>
+    <target name="main" depends="default"> </target>
 </project>
