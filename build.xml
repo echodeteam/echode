@@ -77,7 +77,7 @@
 
     <target name="compile">
         <mkdir dir="build/classes"/>
-        <javac srcdir="Echode/src" destdir="build/classes"/>
+        <javac srcdir="Echode" destdir="build/classes"/>
     </target>
 
     <target name="jar" depends="compile">
