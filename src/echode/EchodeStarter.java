@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package Echode;
+package echode;
 
 import echode.EchodeCLIWrapper;
 import java.net.MalformedURLException;
