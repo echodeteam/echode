@@ -56,7 +56,7 @@ public class Echode {
                 urls[0] = url;
                 URLClassLoader loader = new URLClassLoader(urls);
 		for (File f: dir.listFiles()) {
-			out.println(f);
+			//out.println(f); Debugging
 			if (f.getName().trim().endsWith(".class")) {
 				String name = f.getName();
                                 name = name.replaceAll(".class", "");
