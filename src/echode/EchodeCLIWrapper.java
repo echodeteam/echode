@@ -13,7 +13,7 @@ public class EchodeCLIWrapper {
                 instance.intro();
 		while(true) {
 			//stuff
-			System.out.println("-->");
+			System.out.print("-->");
 			instance.parse(scan.nextLine());
 		}
 	}

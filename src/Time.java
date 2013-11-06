@@ -11,11 +11,10 @@ import java.util.Calendar;
 
 /**
  *
- * @author SirMarksomnian
+ * @author Marks
  */
 public class Time implements Program {
-
-    @Override
+       @Override
     public String help() {
         return null;
     }
@@ -55,6 +54,4 @@ public class Time implements Program {
     public void init() {
         
     }
-
-
 }

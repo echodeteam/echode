@@ -2,13 +2,12 @@ package echode.api;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
 import echode.Program;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -37,6 +36,8 @@ public class Echode {
 	public  void intro() throws ReflectiveOperationException, MalformedURLException {
 		
 		out.println("Welcome to ECHODE version 0.3\nLoading echode.programs...");
+                resetLoaded();
+                loadBuiltins();
 		load();
 	}
 
@@ -70,8 +71,7 @@ public class Echode {
 				for (Class<?> i:c.getInterfaces()) {
                                     //System.err.println(c);
 					if (i.equals(Program.class)) {
-						loaded.add(c);
-						out.println("Loaded " + c.getName());
+						add(c);
 					
 				}
 				}
@@ -108,21 +108,35 @@ public class Echode {
 		case "version":
 			out.println("0.3");
 			break;
+                
 		default:
                     Class noparams[] = {};
 			for (Class c:loaded) {
-				if(c.getName().equalsIgnoreCase(result[0])) {
+				if(c.toString().equalsIgnoreCase(result[0])) {
                                     String[] argv = new String[result.length - 1];
                                     for(int i = 0;i<result.length;i++) {
                                         if (!(i == 0)) {
                                             argv[i-1] = result[i];
                                         }
                                     }
-					c.getDeclaredMethod("run", PrintStream.class, String[].class)
-                                                .invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
+                                        
+					c.getDeclaredMethod("run", PrintStream.class, String[].class).invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
+                                                
 				}
 			}
 			break;
 		}
 	}
+
+    private void resetLoaded() {
+        loaded.clear();
+    }
+
+    private void add(Class c) {
+        loaded.add(c);
+        out.println("Loaded " + c.getCanonicalName());
+    }
+
+    private void loadBuiltins() {
+    }
 }

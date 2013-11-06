@@ -1,12 +1,18 @@
 
 import echode.Program;
-import echode.RespondsTo;
 import java.io.PrintStream;
 
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
+/**
+ *
+ * @author Marks
+ */
 public class Test implements Program {
-
-	@Override
+       @Override
 	
 	public String help() {
 		// TODO Auto-generated method stub
@@ -24,5 +30,4 @@ public class Test implements Program {
 		// TODO Auto-generated method stub
 
 	}
-
 }
