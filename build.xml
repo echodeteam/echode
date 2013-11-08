@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <project name='echode' default='main'>
 
 	<property name="src.dir"     value="Echode/src"/>
@@ -8,10 +9,27 @@
 
     <property name="main-class"  value="echode.Echode"/>
 
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Echode" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Echode.</description>
+    
+
+	
+	<property name="src.dir"     value="src/"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+	<property name="docs.dir" value="${build.dir}/doc"/>
+
+    <property name="main-class"  value="echode.EchodeStarter"/>
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e
     <target name="clean">
         <delete dir="build"/>
     </target>
 
+<<<<<<< HEAD
     <target name="compile" depends='clean'>
         <mkdir dir="build"/>
         <javac srcdir="Echode/src" destdir="build"/>
@@ -29,3 +47,36 @@
 	   <target name='test' depends='main'/>
 	   <target name='jenk' depends='main,jar'/>
 </project>
+=======
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/Echode.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+	<target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+	
+	 <target name="docs" depends="compile">
+    <javadoc packagenames="src" sourcepath="${src.dir}" destdir="${docs.dir}">
+      <!-- Define which files / directory should get included, we include all -->
+       <fileset dir="${src.dir}">
+                <include name="**" />
+           </fileset>
+    </javadoc>
+  </target>
+	
+	<target name="test"> </target>
+	
+    <target name="default" depends="clean,jar"> </target>
+    <target name="main" depends="default"> </target>
+</project>
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e
