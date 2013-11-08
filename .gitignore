@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.py[cod]
 
 # C extensions
@@ -36,3 +37,6 @@ nosetests.xml
 
 #Eclipse auto-compile
 Echode/bin
+=======
+build/
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e
