@@ -34,6 +34,14 @@ public class Echode {
                 this.name = name;
             }
         }
+        public abstract class ExecEvent {
+            Class program;
+            String[] args;
+            public ExecEvent(Class program, String[] args) {
+                this.program = program;
+                this.args = args;
+            }
+        }
 
 	/**
 	 * @param args
@@ -131,7 +139,7 @@ public class Echode {
                                             argv[i-1] = result[i];
                                         }
                                     }
-                                        
+                                        EVENT_BUS.post(new ExecEvent(String[].class, argv) {});
 					c.getDeclaredMethod("run", PrintStream.class, String[].class).invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
                                                 
 				}
