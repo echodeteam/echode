@@ -80,6 +80,7 @@
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/3">
             <compilation-unit>
                 <package-root>src</package-root>
+                <classpath mode="compile">C:\Users\Marks\Documents\Programming\java\guava-15.0.jar</classpath>
                 <source-level>1.7</source-level>
             </compilation-unit>
         </java-data>

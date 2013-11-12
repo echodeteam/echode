@@ -1,5 +1,6 @@
 package echode.api;
 
+import com.google.common.eventbus.EventBus;
 import java.io.File;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -22,6 +23,17 @@ public class Echode {
 	boolean started = false;
 	private PrintStream out;
         private Map<String, Map<String, ?>> vars = new HashMap<>();
+        public final EventBus EVENT_BUS = new EventBus();
+        
+        //begin eventbus-specific stuff
+        public abstract class ProgramLoadedEvent {
+            Class program;
+            String name;
+            public ProgramLoadedEvent(Class program, String name) {
+                this.program = program;
+                this.name = name;
+            }
+        }
 
 	/**
 	 * @param args
@@ -134,6 +146,8 @@ public class Echode {
 
     private void add(Class c) {
         loaded.add(c);
+        EVENT_BUS.post(new ProgramLoadedEvent(c, c.getName()) {
+        });
         out.println("Loaded " + c.getCanonicalName());
     }
 
