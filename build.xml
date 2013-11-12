@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+<project name='echode' default='main'>
+
+	<property name="src.dir"     value="Echode/src"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+
+    <property name="main-class"  value="echode.Echode"/>
+
+=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Echode" default="default" basedir=".">
     <description>Builds, tests, and runs the project Echode.</description>
@@ -12,10 +24,30 @@
 	<property name="docs.dir" value="${build.dir}/doc"/>
 
     <property name="main-class"  value="echode.EchodeStarter"/>
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e
     <target name="clean">
         <delete dir="build"/>
     </target>
 
+<<<<<<< HEAD
+    <target name="compile" depends='clean'>
+        <mkdir dir="build"/>
+        <javac srcdir="Echode/src" destdir="build"/>
+    </target>
+
+    <target name="jar" depends='compile'>
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/Echode.jar" basedir="build">
+            <manifest>
+                <attribute name="Main-Class" value="echode.Echode"/>
+            </manifest>
+        </jar>
+    </target>
+	   <target name="main" depends="clean,compile"/>
+	   <target name='test' depends='main'/>
+	   <target name='jenk' depends='main,jar'/>
+</project>
+=======
     <target name="compile">
         <mkdir dir="build/classes"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
@@ -47,3 +79,4 @@
     <target name="default" depends="clean,jar"> </target>
     <target name="main" depends="default"> </target>
 </project>
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e

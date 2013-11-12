@@ -1,1 +1,42 @@
+<<<<<<< HEAD
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+#Eclipse auto-compile
+Echode/bin
+=======
 build/
+>>>>>>> 71cc4a9b966fcffa3f290f9b58c38a57419f6d3e
