@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import echode.Program;
+import echode.test.TestListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,21 +23,21 @@ public class Echode {
 	 Class<?> c;
 	boolean started = false;
 	private PrintStream out;
-        private Map<String, Map<String, ?>> vars = new HashMap<>();
+        private Map<Class, Map<String, Variable>> var;
         public final EventBus EVENT_BUS = new EventBus();
         
         //begin eventbus-specific stuff
         public abstract class ProgramLoadedEvent {
-            Class program;
-            String name;
+            public Class program;
+            public String name;
             public ProgramLoadedEvent(Class program, String name) {
                 this.program = program;
                 this.name = name;
             }
         }
         public abstract class ExecEvent {
-            Class program;
-            String[] args;
+            public Class program;
+            public String[] args;
             public ExecEvent(Class program, String[] args) {
                 this.program = program;
                 this.args = args;
@@ -49,15 +50,16 @@ public class Echode {
 	 */
 	
 	public Echode(PrintStream out   ) {
+        this.var = new HashMap<>();
 		this.out = out;
 	}
 
 	// welcome message
 	public  void intro() throws ReflectiveOperationException, MalformedURLException {
-		
-		out.println("Welcome to ECHODE version 0.3\nLoading echode.programs...");
+            System.err.println("register listener");
+		EVENT_BUS.register(new TestListener());
+		out.println("Welcome to ECHODE version 0.3\nLoading programs...");
                 resetLoaded();
-                loadBuiltins();
 		load();
 	}
 
@@ -115,6 +117,7 @@ public class Echode {
 		 * } else{ out.println("Not implemented yet."); } }
 		 **/
 		String[] result = in2.split(" ");
+                //System.err.println(result[0]);
 		switch (result[0]) {
 		case "about":
 			out
@@ -131,8 +134,10 @@ public class Echode {
                 
 		default:
                     Class noparams[] = {};
-			for (Class c:loaded) {
-				if(c.toString().equalsIgnoreCase(result[0])) {
+			for (Class ct:loaded) {
+                            //System.err.println(ct);
+				if(ct.getName().equalsIgnoreCase(result[0])) {
+                                    //System.err.println("equals");
                                     String[] argv = new String[result.length - 1];
                                     for(int i = 0;i<result.length;i++) {
                                         if (!(i == 0)) {
@@ -140,7 +145,8 @@ public class Echode {
                                         }
                                     }
                                         EVENT_BUS.post(new ExecEvent(String[].class, argv) {});
-					c.getDeclaredMethod("run", PrintStream.class, String[].class).invoke(c.getConstructors()[0].newInstance(noparams), out, argv); 
+					ct.getDeclaredMethod("run", PrintStream.class, String[].class).invoke(ct.getConstructors()[0].newInstance((Object[]) noparams), out, argv);
+                                        break;
                                                 
 				}
 			}
@@ -159,6 +165,15 @@ public class Echode {
         out.println("Loaded " + c.getCanonicalName());
     }
 
-    private void loadBuiltins() {
+
+    public void putVariable(Class owner, String key, Object value) {
+        if (var.get(owner).containsKey(key)) {
+            var.get(owner).get(key).set(value);
+        }
     }
+    public Object getVariable(Class owner, String key) {
+        return var.get(owner).get(key);
+    }
+    
+    
 }
