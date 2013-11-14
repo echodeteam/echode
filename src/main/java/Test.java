@@ -1,5 +1,5 @@
 
-import echode.Program;
+import echode.api.Program;
 import java.io.PrintStream;
 
 /*

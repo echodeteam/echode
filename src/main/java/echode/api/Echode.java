@@ -7,14 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import echode.Program;
 import echode.test.TestListener;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.UUID;
+import javax.net.ssl.HttpsURLConnection;
 
 public class Echode {
 	 Scanner scan;
@@ -23,8 +30,9 @@ public class Echode {
 	 Class<?> c;
 	boolean started = false;
 	private PrintStream out;
-        private Map<Class, Map<String, Variable>> var;
         public final EventBus EVENT_BUS = new EventBus();
+        
+        public UUID uuid;
         
         //begin eventbus-specific stuff
         public abstract class ProgramLoadedEvent {
@@ -50,14 +58,14 @@ public class Echode {
 	 */
 	
 	public Echode(PrintStream out   ) {
-        this.var = new HashMap<>();
 		this.out = out;
 	}
 
 	// welcome message
-	public  void intro() throws ReflectiveOperationException, MalformedURLException {
+	public  void intro() throws ReflectiveOperationException, MalformedURLException, IOException {
             System.err.println("register listener");
 		EVENT_BUS.register(new TestListener());
+                reportRunAnalytic();
 		out.println("Welcome to ECHODE version 0.3\nLoading programs...");
                 resetLoaded();
 		load();
@@ -164,16 +172,66 @@ public class Echode {
         });
         out.println("Loaded " + c.getCanonicalName());
     }
-
-
-    public void putVariable(Class owner, String key, Object value) {
-        if (var.get(owner).containsKey(key)) {
-            var.get(owner).get(key).set(value);
+    
+    private void reportRunAnalytic() throws IOException, ClassNotFoundException {
+        writeUuidToFile();
+             String url = "https://ssl.google-analytics.com/collect";
+		URL obj = new URL(url);
+		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+ 
+		//add reuqest header
+		con.setRequestMethod("POST");
+		con.setRequestProperty("User-Agent", "Java/1.6.0_26");
+ 
+		String urlParameters1 = "v=1&tid=UA-44877650-2&cid=" + uuid.toString() + "&t=event&ec=echode&ea=run&el=Run&ev=300";
+ 
+		// Send post request
+		con.setDoOutput(true);
+		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		wr.writeBytes(urlParameters1);
+		wr.flush();
+		wr.close();
+ 
+		int responseCode = con.getResponseCode();
+		out.println("Response Code from Google Analytics: "
+                        + responseCode);
+ 
+		BufferedReader in = new BufferedReader(
+		        new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		StringBuffer response = new StringBuffer();
+ 
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+ 
+		//print result
+    }
+    public void writeUuidToFile() throws IOException, ClassNotFoundException {
+        File file = new File("echode_uuid.ser");
+        if (!file.exists()) {
+            file.createNewFile();
+            FileOutputStream fout = new FileOutputStream(file);
+	ObjectOutputStream oos = new ObjectOutputStream(fout); 
+        if (uuid == null) {
+            uuid = UUID.randomUUID();
+            //System.err.println(uuid);
         }
+        oos.writeObject(uuid);
+        oos.flush();
+        oos.close();
+        } else {
+            FileInputStream fin = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            uuid = (UUID) ois.readObject();
+            //System.err.println(uuid);
+        }
+        
+
     }
-    public Object getVariable(Class owner, String key) {
-        return var.get(owner).get(key);
-    }
+
+
     
     
 }
