@@ -1,16 +1,21 @@
 
-package echode;
+package echode.api;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**A base interface for all Echode echode.programs. Required to be implemented by all echode.programs
  * @author Marks
  *
  */
 public interface Program {
+    
+        Map<String, ?> vars = new HashMap<>();
 	/**Called when help is invoked on the program.
 	 * 
 	 * @return the help message to be printed.
+         *
 	 */
 	public String help();
 	/**
