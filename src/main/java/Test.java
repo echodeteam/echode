@@ -11,7 +11,7 @@ import java.io.PrintStream;
  *
  * @author Marks
  */
-public class Test implements Program {
+public class Test extends Program {
        @Override
 	
 	public String help() {
