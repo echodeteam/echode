@@ -13,7 +13,7 @@ import java.util.Calendar;
  *
  * @author Marks
  */
-public class Time implements Program {
+public class Time extends Program {
        @Override
     public String help() {
         return null;
@@ -21,7 +21,8 @@ public class Time implements Program {
 
     @Override
     public void run(PrintStream o, String[] args) {
-        try {
+        if (args.length != 0) {
+        
 				switch (args[0]) {
 				case "all":
 					String alltime = new SimpleDateFormat(
@@ -45,9 +46,10 @@ public class Time implements Program {
 					o.println("Usage: 'time <all|date|digital>'");
 					break;
 				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				o.println("Usage: 'time <all|date|digital>'");
-			}
+        } else {
+            o.println("Usage: 'time <all|date|digital>'");
+        }
+			
     }
 
     @Override

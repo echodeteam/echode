@@ -9,7 +9,7 @@ import java.util.Map;
  * @author Marks
  *
  */
-public interface Program {
+public abstract class Program {
     
         Map<String, ?> vars = new HashMap<>();
 	/**Called when help is invoked on the program.
@@ -17,17 +17,20 @@ public interface Program {
 	 * @return the help message to be printed.
          *
 	 */
-	public String help();
+	public abstract String help();
 	/**
 	 * Called when the program is run. The program shall <i>NEVER</i> print directly to System.out OR System.err,
 	 * instead use the output stream.
          * @param o the output stream.
          * @param args the arguments 
 	 */
-	public void run(PrintStream o, String[] args);
+	public void run(PrintStream o, String[] args) {
+            o.println("Okay, your raw application is now ready for coding."
+                    + "Edit your class's run method to change this code.");
+        }
         
         /**Not used now.
          * 
          */
-        public void init();
+        public abstract void init();
 }

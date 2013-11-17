@@ -13,6 +13,7 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,6 +21,7 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.Properties;
 import java.util.UUID;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -63,10 +65,9 @@ public class Echode {
 
 	// welcome message
 	public  void intro() throws ReflectiveOperationException, MalformedURLException, IOException {
-            System.err.println("register listener");
 		EVENT_BUS.register(new TestListener());
                 reportRunAnalytic();
-		out.println("Welcome to ECHODE version 0.3\nLoading programs...");
+		out.println("Welcome to ECHODE version " + getAPIVersion() +"\nLoading programs...");
                 resetLoaded();
 		load();
 	}
@@ -98,13 +99,13 @@ public class Echode {
 				//out.println(name);
 				Class c = loader.loadClass(name);
                                 //System.err.println(c);
-				for (Class<?> i:c.getInterfaces()) {
+				
                                     //System.err.println(c);
-					if (i.equals(Program.class)) {
+					if (c.getSuperclass().equals(Program.class)) {
 						add(c);
 					
 				}
-				}
+				
 			}
 		}
 		
@@ -125,6 +126,7 @@ public class Echode {
 		 * } else{ out.println("Not implemented yet."); } }
 		 **/
 		String[] result = in2.split(" ");
+                if (!(result.length == 0)) {
                 //System.err.println(result[0]);
 		switch (result[0]) {
 		case "about":
@@ -132,7 +134,7 @@ public class Echode {
 					.println("Echode version 0.3\nMade by Erik Konijn and Marks Polakovs");
 			break;
 		case "kill":
-			out.println("Echode shut down succesfully.");
+			out.println("Echode terminated succesfully.");
 			System.exit(0);
 			break;
                 //Help may be reimplemented at a later date
@@ -161,6 +163,7 @@ public class Echode {
 			break;
 		}
 	}
+        }
 
     private void resetLoaded() {
         loaded.clear();
@@ -216,6 +219,7 @@ public class Echode {
 	ObjectOutputStream oos = new ObjectOutputStream(fout); 
         if (uuid == null) {
             uuid = UUID.randomUUID();
+            
             //System.err.println(uuid);
         }
         oos.writeObject(uuid);
@@ -227,11 +231,26 @@ public class Echode {
             uuid = (UUID) ois.readObject();
             //System.err.println(uuid);
         }
+        out.println(uuid);
         
 
     }
-
-
     
+    public String getAPIVersion() {
+	String path = "/version.prop";
+	InputStream stream = getClass().getResourceAsStream(path);
+	if (stream == null) return "UNKNOWN";
+	Properties props = new Properties();
+	try {
+		props.load(stream);
+		stream.close();
+		return (String)props.get("version");
+	} catch (IOException e) {
+		return "UNKNOWN";
+	}
+}
+
+
+
     
 }

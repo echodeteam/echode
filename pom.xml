@@ -4,7 +4,7 @@
 
   <groupId>echode</groupId>
   <artifactId>echode</artifactId>
-  <version>0.2</version>
+  <version>0.4</version>
   <packaging>jar</packaging>
 
   <name>echode</name>
@@ -24,8 +24,27 @@
     <artifactId>guava</artifactId>
     <version>15.0</version>
 </dependency>
+
+
   </dependencies>
+  
   <build>
+      <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+                <include>**/version.prop</include>
+            </includes>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+            <filtering>false</filtering>
+            <excludes>
+                <exclude>**/version.prop</exclude>
+            </excludes>
+        </resource>
+    </resources>
 	<plugins>
 		<plugin>
     		<groupId>org.apache.maven.plugins</groupId>
@@ -77,4 +96,5 @@
             </plugin>
         </plugins>
     </reporting>
+    
 </project>
