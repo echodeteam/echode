@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public abstract class Program {
     
-        Map<String, ?> vars = new HashMap<>();
+        Map<String, Object> vars = new HashMap<>();
 	/**Called when help is invoked on the program.
 	 * 
 	 * @return the help message to be printed.
@@ -33,4 +33,21 @@ public abstract class Program {
          * 
          */
         public abstract void init();
+        
+        /**
+         * Puts a variable
+         * @param name
+         * @param var 
+         */
+        protected void putVariable(String name, Object var) {
+            vars.put(name, var);
+        }
+        /**
+         * Gets a variable
+         * @param name
+         * @return the variable
+         */
+        protected Object getVariable(String name) {
+            return vars.get(name);
+        }
 }
