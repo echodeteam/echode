@@ -11,7 +11,8 @@ import java.util.regex.Pattern;
  * @author Marks
  */
 public enum LanguageConstruct {
-    LINE_TERMINATION(Pattern.compile("(?i)."));
+    LINE_TERMINATION(Pattern.compile("(?i)\\.")),
+    VARIABLE_DEFINITION(Pattern.compile("(?i)let .* be .*"));
     private final Pattern pattern;
     LanguageConstruct(Pattern pattern) {
     this.pattern = pattern;
