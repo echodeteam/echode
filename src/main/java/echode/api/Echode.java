@@ -21,6 +21,7 @@ import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.UUID;
 import javax.net.ssl.HttpsURLConnection;
@@ -66,15 +67,16 @@ public class Echode {
 	// welcome message
 	public  void intro() throws ReflectiveOperationException, MalformedURLException, IOException {
 		EVENT_BUS.register(new TestListener());
+                
+		out.println("Welcome to ECHODE version " + getAPIVersion());
                 reportRunAnalytic();
-		out.println("Welcome to ECHODE version " + getAPIVersion() +"\nLoading programs...");
                 resetLoaded();
 		load();
 	}
 
 	private  void load() throws ReflectiveOperationException, MalformedURLException {
                 String currentDir = System.getProperty("user.dir");
-                //System.out.println(currentDir);
+                out.println("Loading programs...");
 		File dir = new File(currentDir + "\\programs\\");
                 if (!dir.isDirectory()) {
                     boolean mkdir = dir.mkdir();
@@ -177,6 +179,7 @@ public class Echode {
     }
     
     private void reportRunAnalytic() throws IOException, ClassNotFoundException {
+        out.println("Beginning Google analytics report:");
         writeUuidToFile();
              String url = "https://ssl.google-analytics.com/collect";
 		URL obj = new URL(url);
@@ -190,6 +193,7 @@ public class Echode {
  
 		// Send post request
 		con.setDoOutput(true);
+                try {
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 		wr.writeBytes(urlParameters1);
 		wr.flush();
@@ -198,16 +202,11 @@ public class Echode {
 		int responseCode = con.getResponseCode();
 		out.println("Response Code from Google Analytics: "
                         + responseCode);
- 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
- 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
+                } catch (UnknownHostException e) {
+                    out.println("Google Analytics reporting failed (if this"
+                            + " persists, contact the devs and attach the"
+                            + " following:\n" + e);
+                }
  
 		//print result
     }
@@ -231,7 +230,7 @@ public class Echode {
             uuid = (UUID) ois.readObject();
             //System.err.println(uuid);
         }
-        out.println(uuid);
+        out.println("Google Analytics tracking ID: " + uuid);
         
 
     }
