@@ -33,6 +33,6 @@ public class Test extends Program {
 
     @Override
     public String getName() {
-        return "Test"
+        return "Test";
     }
 }

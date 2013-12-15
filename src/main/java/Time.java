@@ -59,6 +59,6 @@ public class Time extends Program {
 
     @Override
     public String getName() {
-        return "Time"
+        return "Time";
     }
 }
