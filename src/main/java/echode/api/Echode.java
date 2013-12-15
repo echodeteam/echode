@@ -8,13 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import echode.test.TestListener;
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -135,7 +133,7 @@ public class Echode {
 			out
 					.println("Echode version 0.3\nMade by Erik Konijn and Marks Polakovs");
 			break;
-		case "kill":
+		case "kill": case "exit": case "quit":
 			out.println("Echode terminated succesfully.");
 			System.exit(0);
 			break;
@@ -148,7 +146,10 @@ public class Echode {
                     Class noparams[] = {};
 			for (Class ct:loaded) {
                             //System.err.println(ct);
-				if(ct.getName().equalsIgnoreCase(result[0])) {
+                            Object invoking;
+                            invoking = ct.getConstructor(null).newInstance(null);
+                            String checkingName = (String)ct.getMethod("getName", null).invoke(invoking, noparams);
+				if(checkingName.equalsIgnoreCase(result[0])) {
                                     //System.err.println("equals");
                                     String[] argv = new String[result.length - 1];
                                     for(int i = 0;i<result.length;i++) {
