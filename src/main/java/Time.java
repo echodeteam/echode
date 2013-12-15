@@ -56,4 +56,9 @@ public class Time extends Program {
     public void init() {
         
     }
+
+    @Override
+    public String getName() {
+        return "Time"
+    }
 }

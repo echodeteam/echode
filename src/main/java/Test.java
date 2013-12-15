@@ -30,4 +30,9 @@ public class Test extends Program {
 		// TODO Auto-generated method stub
 
 	}
+
+    @Override
+    public String getName() {
+        return "Test"
+    }
 }
