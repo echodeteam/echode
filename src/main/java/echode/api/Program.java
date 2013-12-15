@@ -50,4 +50,5 @@ public abstract class Program {
         protected Object getVariable(String name) {
             return vars.get(name);
         }
+        public abstract String getName();
 }
