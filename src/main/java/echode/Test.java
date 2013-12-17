@@ -1,3 +1,4 @@
+package echode;
 
 import echode.api.Program;
 import java.io.PrintStream;

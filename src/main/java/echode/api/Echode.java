@@ -1,28 +1,18 @@
 package echode.api;
 
 import com.google.common.eventbus.EventBus;
-import java.io.File;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import echode.Test;
+import echode.Time;
 import echode.test.TestListener;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.net.UnknownHostException;
-import java.util.Properties;
-import java.util.UUID;
-import javax.net.ssl.HttpsURLConnection;
+import java.util.*;
 
 public class Echode {
 	 Scanner scan;
@@ -53,10 +43,7 @@ public class Echode {
             }
         }
 
-	/**
-	 * @param args
-	 * @throws ReflectiveOperationException 
-	 */
+
 	
 	public Echode(PrintStream out   ) {
 		this.out = out;
@@ -75,6 +62,7 @@ public class Echode {
 	private  void load() throws ReflectiveOperationException, MalformedURLException {
                 String currentDir = System.getProperty("user.dir");
                 out.println("Loading programs...");
+        loadBuiltins();
 		File dir = new File(currentDir + "\\programs\\");
                 if (!dir.isDirectory()) {
                     boolean mkdir = dir.mkdir();
@@ -146,10 +134,9 @@ public class Echode {
                     Class noparams[] = {};
 			for (Class ct:loaded) {
                             //System.err.println(ct);
-                            Object invoking;
-                            invoking = ct.getConstructor(null).newInstance(null);
-                            String checkingName = (String)ct.getMethod("getName", null).invoke(invoking, noparams);
-				if(checkingName.equalsIgnoreCase(result[0])) {
+                            String checkingName = getProgramName(ct);
+                if (checkingName.equalsIgnoreCase(result[0])) {
+                    out.println("Starting program " + checkingName);
                                     //System.err.println("equals");
                                     String[] argv = new String[result.length - 1];
                                     for(int i = 0;i<result.length;i++) {
@@ -157,26 +144,33 @@ public class Echode {
                                             argv[i-1] = result[i];
                                         }
                                     }
-                                        EVENT_BUS.post(new ExecEvent(String[].class, argv) {});
+                                        EVENT_BUS.post(new ExecEvent(ct, argv) {});
 					ct.getDeclaredMethod("run", PrintStream.class, String[].class).invoke(ct.getConstructors()[0].newInstance((Object[]) noparams), out, argv);
                                         break;
                                                 
-				}
+				} else {
 			}
-			break;
+            out.println("No program found with name " + result[0]);
+        }
+
+        }
 		}
 	}
-        }
+
 
     private void resetLoaded() {
         loaded.clear();
     }
 
-    private void add(Class c) {
+    private void add(Class c) throws ReflectiveOperationException {
         loaded.add(c);
         EVENT_BUS.post(new ProgramLoadedEvent(c, c.getName()) {
         });
-        out.println("Loaded " + c.getCanonicalName());
+        out.println("Loaded " + getProgramName(c));
+    }
+    private void loadBuiltins() throws ReflectiveOperationException {
+        add(Test.class);
+        add(Time.class);
     }
     
     private void reportRunAnalytic() throws IOException, ClassNotFoundException {
@@ -250,6 +244,10 @@ public class Echode {
 	}
 }
 
+public String getProgramName(Class<? extends Program> ct) throws ReflectiveOperationException {
+    Program checking = ct.getConstructor(null).newInstance(null);
+    return checking.getName();
+}
 
 
     
