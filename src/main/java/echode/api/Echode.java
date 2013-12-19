@@ -118,8 +118,7 @@ public class Echode {
                 //System.err.println(result[0]);
 		switch (result[0]) {
 		case "about":
-			out
-					.println("Echode version " + getApiVersion()+"\nMade by Erik Konijn and Marks Polakovs");
+			out.println("Echode version " + getAPIVersion()+"\nMade by Erik Konijn and Marks Polakovs");
 			break;
 		case "kill": case "exit": case "quit":
 			out.println("Echode terminated succesfully.");
