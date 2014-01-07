@@ -1,8 +1,27 @@
+/*
+ * Echode
+ *     Copyright (C) 2014  Echode Team
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package echode.api;
 
 import com.google.common.eventbus.EventBus;
 import echode.Test;
 import echode.Time;
+import echode.api.compiler.Compile;
 import echode.test.TestListener;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -64,12 +83,7 @@ public class Echode {
                 out.println("Loading programs...");
         loadBuiltins();
 		File dir = new File(currentDir + "\\programs\\");
-                if (!dir.isDirectory()) {
-                    boolean mkdir = dir.mkdir();
-                    if (!mkdir) {
-                        throw new RuntimeException("Making the directory failed.");
-                    }
-                }
+         setupDirs();
                 URL url = new URL("file", currentDir, "programs/");
 		//out.println(dir);
                 URL[] urls = new URL[1];
@@ -100,6 +114,34 @@ public class Echode {
 
 		
 	}
+    private void setupDirs() {
+        String currentDir = System.getProperty("user.dir");
+        //programs dir
+        File dir = new File(currentDir + "\\programs\\");
+        if (!dir.isDirectory()) {
+            boolean mkdir = dir.mkdir();
+            if (!mkdir) {
+                throw new RuntimeException("Making the directory failed.");
+            }
+        }
+        //langstructs dir
+        File dir2 = new File(currentDir + "/langstructs/");
+        if (!dir2.isDirectory()) {
+            boolean mkdir2 = dir2.mkdir();
+            if (!mkdir2) {
+                throw new RuntimeException("Making the directory failed.");
+            }
+        }
+        //programs-src
+        File dir3 = new File(currentDir + "/programs-src/");
+        if (!dir3.isDirectory()) {
+            boolean mkdir3 = dir3.mkdir();
+            if (!mkdir3) {
+                throw new RuntimeException("Making the directory failed.");
+            }
+        }
+    }
+
 
 	
 
@@ -170,6 +212,7 @@ public class Echode {
     private void loadBuiltins() throws ReflectiveOperationException {
         add(Test.class);
         add(Time.class);
+        add(Compile.class);
     }
     
     private void reportRunAnalytic() throws IOException, ClassNotFoundException {

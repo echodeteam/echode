@@ -1,4 +1,3 @@
-
 /*
  * Echode
  *     Copyright (C) 2014  Echode Team
@@ -17,8 +16,38 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** The Echode developer's API. Also contains the main Echode class.
- * @author Marks
- *
+package echode.api.compiler;
+
+import echode.api.Program;
+
+import java.io.PrintStream;
+
+/**
+ * Created by Marks on 14.3.1.
  */
-package echode.api;
+public class Compile extends Program {
+
+    @Override
+    public String help() {
+        return null;
+    }
+
+    @Override
+    public void run(PrintStream o, String[] args) {
+        if(args.length < 1) {
+            o.println("Usage: compile {name of program to compile}");
+        } else {
+
+        }
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public String getName() {
+        return "compile";
+    }
+}
