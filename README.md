@@ -1,4 +1,4 @@
-Echode [![Build Status](http://marksomns.playat.ch:8081/buildStatus/icon?job=echode)](http://marksomns.playat.ch:8081/job/echode/)
+Echode [![Build Status](http://marksomns.playat.ch:8080/buildStatus/icon?job=echode)](http://marksomns.playat.ch:8080/job/echode/)
 ====
 Echode is a programming language, designed to be simple.
 
