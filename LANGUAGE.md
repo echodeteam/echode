@@ -26,6 +26,19 @@ Each program must have a block of code marked with a _starthere_ block, for exam
 > end program
 
 The command line arguments are made available with the _argv_ list
+## Comments
+Comments are blocks of code that are ignored by the compiler. There are two styles of comment
+> ... //commment is ignored
+
+This style is maintained until the end of the line
+or
+> ... /*
+> comment
+>
+> is
+>
+> ignored */
+
 ## Variables and Literals
 Variables are declared with the _let_ statement and the _declare_ statement. The difference is that a let statement
 assigns a variable at the same time as it is declared, while a declare statement simply declares it's name
@@ -68,6 +81,25 @@ A function with parameters are declared as
 > end function
 
 and called with
-> call _name_ with (_parname_ = _parvalue_, _par2name_ _par2value_)
+> _name_ (_parname_ = _parvalue_, _par2name_ = _par2value_)
+
+Functions on objects are called as
+> _obj_->_name_(...)
 
 Parameter names MUST be included, except if there is only one parameter. In addition, parameters can be in __any__ order
+
+##Lists
+List syntax is
+> declare list[_type_] _name_
+
+or
+> let list[_type_] _name_ be _expr_
+
+The syntax to access an element in a list is
+> _name_[_index_]
+
+An element is inserted into a list in two ways: An existing element is replaced like:
+> let _name_[_index_] be _expr_
+
+While an element is added to the end as
+> _name_->push(*obj*) (asterisks not necessary)
