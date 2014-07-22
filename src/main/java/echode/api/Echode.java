@@ -3,6 +3,11 @@
  * http://choosealicense.com/licenses/apache-2.0/
  */
 
+/*
+ * Echode is licensed under the Apache License 2.0. See the full text at
+ * http://choosealicense.com/licenses/apache-2.0/
+ */
+
 package echode.api;
 
 import com.google.common.eventbus.EventBus;
