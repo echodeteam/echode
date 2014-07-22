@@ -45,7 +45,7 @@ There are several variable types
  * Number: (Max value: 2**2**40*10**2**32) (Syntax: __3.1415__)
  * String (syntax: __"stringvalue"__)
  * Boolean (syntax: __true__ or __false__)
- * List (syntax: __[type]{obj1, obj2, obj3}__) (see later)
+ * List (syntax: __{obj1, obj2, obj3}__) (see later)
 
 ## Functions
 
