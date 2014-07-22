@@ -5,6 +5,7 @@ The Echode language is a language that is designed to be simple. It compiles to 
 It is strongly static typed.
 Everything must be closed with an _end_ statement. Statements are newline-based. Between keywords there must be at least
 one bit of whitespace, further whitespace is ignored.
+Program files have the extension _.ecp_
 
 ## Program Syntax
 The core of a program is written as
