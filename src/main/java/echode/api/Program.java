@@ -4,6 +4,11 @@
  * http://choosealicense.com/licenses/apache-2.0/
  */
 
+/*
+ * Echode is licensed under the Apache License 2.0. See the full text at
+ * http://choosealicense.com/licenses/apache-2.0/
+ */
+
 package echode.api;
 
 import java.io.PrintStream;
@@ -17,7 +22,7 @@ import java.util.Map;
 public abstract class Program {
     
         Map<String, Object> vars = new HashMap<>();
-	/**Called when help is invoked on the program.
+	/**Called when help is invoked on the program. Not used now.
 	 * 
 	 * @return the help message to be printed.
          *
@@ -55,5 +60,10 @@ public abstract class Program {
         protected Object getVariable(String name) {
             return vars.get(name);
         }
+
+    /**
+     * This method returns the name of the program, used in checking which program to run.
+     * @return the name
+     */
         public abstract String getName();
 }
