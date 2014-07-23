@@ -28,17 +28,10 @@ Each program must have a block of code marked with a _starthere_ block, for exam
 
 The command line arguments are made available with the _argv_ list
 ## Comments
-Comments are blocks of code that are ignored by the compiler. There are two styles of comment
+Comments are blocks of code that are ignored by the compiler.
 > ... //commment is ignored
 
 This style is maintained until the end of the line
-or
-> ... /*
-> comment
->
-> is
->
-> ignored */
 
 ## Variables and Literals
 Variables are declared with the _let_ statement and the _declare_ statement. The difference is that a let statement
