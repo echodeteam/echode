@@ -26,7 +26,7 @@ Each program must have a block of code marked with a _starthere_ block, for exam
 >
 > end program
 
-The command line arguments are made available with the _argv_ list
+The command line arguments are made available with the _arguments_ list
 ## Comments
 Comments are blocks of code that are ignored by the compiler.
 > ... //commment is ignored
