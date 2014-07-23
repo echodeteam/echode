@@ -64,7 +64,7 @@ Functions are declared as
 > end function
 
 and called with
-> call _name_
+> _name_()
 
 A function with parameters are declared as
 
