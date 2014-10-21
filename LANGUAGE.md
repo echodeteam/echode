@@ -42,9 +42,16 @@ or
 
 > let _type_ _name_ be _expression_
 
-An exception is when a variable has already been declared, in which case the let statement is used without the type:
+An exception is when a variable has already been declared, in which case the set statement is used without the type:
 
-> let _name_ be _expression_
+> set _name_ _expression_
+
+Variable declaration can have some _modifiers_, such as
+_readonly_, which means that the variable can only be read from, and
+_public_, which means that the variable is accessible from outside (see Scoping).
+These are declared as so:
+> declare (public, readonly) _type_ _name_
+
 
 ### Variable Types
 There are several variable types
