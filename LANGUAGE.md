@@ -84,9 +84,6 @@ A function with parameters are declared as
 and called with
 > _name_ (_parname_ = _parvalue_, _par2name_ = _par2value_)
 
-Functions on objects are called as
-> _obj_->_name_(...)
-
 Parameter names MUST be included, except if there is only one parameter. In addition, parameters can be in __any__ order
 
 ##Lists
