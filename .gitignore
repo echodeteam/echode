@@ -44,7 +44,7 @@ programs/
 #build
 target/**
 target/
-
+!target/programs-src
 #configuration
 ec_config
 =======

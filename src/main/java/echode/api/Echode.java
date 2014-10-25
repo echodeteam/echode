@@ -11,6 +11,7 @@
 package echode.api;
 
 import com.google.common.eventbus.EventBus;
+import echode.RespondsTo;
 import echode.Test;
 import echode.Time;
 import echode.api.compiler.Compile;
@@ -19,6 +20,7 @@ import echode.test.TestListener;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -287,6 +289,10 @@ public class Echode {
     }
 
     public <C> String getProgramName(Class<? extends Program> ct) throws ReflectiveOperationException {
+        Method method = ct.getMethod("run", PrintStream.class, String[].class);
+        if(method.isAnnotationPresent(RespondsTo.class)) {
+            return method.getAnnotation(RespondsTo.class).command();
+        }
         Program checking = ct.getConstructor(null).newInstance(null);
         return checking.getName();
     }
