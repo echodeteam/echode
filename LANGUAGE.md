@@ -9,16 +9,16 @@ Program files have the extension _.ecp_
 
 ## Program Syntax
 The core of a program is written as
-> program _programname_
+> program _programname_:
 >
 > ...
->
+
 > end program
 
-Each program must have a block of code marked with a _starthere_ block, for example
+Each program must have a block of code marked with a starthere block, for example
 > program _name_
 >
-> __starthere__
+> __starthere__:
 >
 > ...
 >
@@ -64,7 +64,7 @@ There are several variable types
 ## Functions
 
 Functions are declared as
-> function _name_
+> function _name_:
 >
 > ...
 >
@@ -75,7 +75,7 @@ and called with
 
 A function with parameters are declared as
 
-> function _name_ with (_partype_ _parname_ = _default_, _par2type_ _par2name_ = _par2default_)
+> function _name_ with (_partype_ _parname_ = _default_, _par2type_ _par2name_ = _par2default_):
 >
 > ...
 >
