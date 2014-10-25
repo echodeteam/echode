@@ -99,5 +99,5 @@ The syntax to access an element in a list is
 An element is inserted into a list in two ways: An existing element is replaced like:
 > let _name_[_index_] be _expr_
 
-While an element is added to the end as
-> _name_->push(*obj*) (asterisks not necessary)
+Elements are added to the end of a list using the _listpush_ function, like so:
+> listpush (_list_, _expr_)
